@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -154,7 +155,7 @@ public class DictionariesProcessor {
                     e.printStackTrace();
                     System.err.println("Error copying hyphenation files");
                 }
-                var existingEntries = hyphenData.stream().filter(d -> d.locales.contains(languageTag) || d.locales.contains(localeName.replace("_", "-"))).toList();
+                var existingEntries = hyphenData.stream().filter(d -> d.locales.contains(languageTag) || d.locales.contains(localeName.replace("_", "-"))).collect(Collectors.toList());
                 hyphenData.removeAll(existingEntries);
                 hyphenData.add(new HyphenData(List.of(localeName + "/" + patternFile.getName()), locales).setHyphen(""));
             }
@@ -301,7 +302,7 @@ public class DictionariesProcessor {
 
         List<String> relativeLocations = locationFiles.stream()
                 .map(loc -> directoryName + "/" + new File(loc).getName())
-                .toList();
+                .collect(Collectors.toList());
 
         hyphenData.add(new HyphenData(relativeLocations, localesList));
     }

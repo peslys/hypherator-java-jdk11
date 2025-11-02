@@ -1,4 +1,4 @@
-# Hypherator – Java Hyphenation Library
+# Hypherator – Java Hyphenation Library (JDK11)
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.sevcik/hypherator)](https://central.sonatype.com/artifact/io.sevcik/hypherator)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -25,7 +25,7 @@
 <dependency>
     <groupId>io.sevcik</groupId>
     <artifactId>hypherator</artifactId>
-    <version>1.0</version>
+    <version>1.1-jdk11</version>
 </dependency>
 ```
 

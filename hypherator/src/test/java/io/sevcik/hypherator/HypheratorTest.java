@@ -8,9 +8,11 @@ import static io.sevcik.hypherator.HyphenationIterator.DONE;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HypheratorTest {
     private ObjectMapper mapper = new ObjectMapper();
@@ -75,10 +77,10 @@ public class HypheratorTest {
     public void testHyphenation() throws IOException {
         List<String> allTcs = List.of();
         try (InputStream tcStream = getClass().getResourceAsStream("/data/testcases.txt")) {
-            allTcs = new java.io.BufferedReader(new java.io.InputStreamReader(tcStream))
+            allTcs = new java.io.BufferedReader(new java.io.InputStreamReader(tcStream, StandardCharsets.UTF_8))
                     .lines()
                     .map(String::trim)
-                    .toList();
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             System.out.println("No test cases found");
         }
@@ -93,10 +95,10 @@ public class HypheratorTest {
                 HyphenDict dict = HyphenDictBuilder.fromInputStream(dictStream);
 
                 // Read all lines, trim, keep blank lines for splitting
-                List<String> allLines = new java.io.BufferedReader(new java.io.InputStreamReader(dataStream))
+                List<String> allLines = new java.io.BufferedReader(new java.io.InputStreamReader(dataStream, StandardCharsets.UTF_8))
                         .lines()
                         .map(String::trim)
-                        .toList();
+                        .collect(Collectors.toList());
 
                 // Split into blocks separated by empty lines (blank lines)
                 List<List<String>> blocks = new java.util.ArrayList<>();
@@ -131,7 +133,7 @@ public class HypheratorTest {
                                 var broken = hypernate.applyBreak(word, breakRule);
                                 return broken.getFirst() + "=" + broken.getSecond();
                             })
-                            .toList();
+                            .collect(Collectors.toList());
 
                     System.out.println("Test case: " + tcName + " #" + caseIdx);
                     System.out.println("Input: " + word);

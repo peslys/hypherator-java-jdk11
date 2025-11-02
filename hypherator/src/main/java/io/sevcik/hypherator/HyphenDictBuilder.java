@@ -10,13 +10,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class HyphenDictBuilder {
     private static final Logger logger = LoggerFactory.getLogger(HyphenDictBuilder.class);
-    private static final List<String> DEFAULT_NO_HYPHEN_LIST = Arrays.stream("',–,’,-".split(",")).toList();
+    private static final List<String> DEFAULT_NO_HYPHEN_LIST = Arrays.stream("',–,’,-".split(",")).collect(Collectors.toList());
 
 
     public static HyphenDict fromFile(String filename) throws IOException {
@@ -65,7 +66,7 @@ class HyphenDictBuilder {
                 }
                 if (line.startsWith("NOHYPHEN")) {
                     // no hyphen rule `xyz` is equivalent to a rule `x10y10z10`
-                    List<String> noHphenList = Arrays.stream(line.substring("NOHYPHEN".length()).trim().split(",")).toList();
+                    List<String> noHphenList = Arrays.stream(line.substring("NOHYPHEN".length()).trim().split(",")).collect(Collectors.toList());
                     for (String noHphen : noHphenList) {
                         workingDict.insertNoHyphen(noHphen);
                     }

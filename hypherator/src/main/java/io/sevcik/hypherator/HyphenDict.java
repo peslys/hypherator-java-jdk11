@@ -103,7 +103,8 @@ import java.util.*;
 
         @Override
         public boolean equals(Object o) {
-            if (!(o instanceof BreakRule breakRule)) return false;
+            if (!(o instanceof BreakRule)) return false;
+            BreakRule breakRule = (BreakRule) this;
             return value == breakRule.value && replacementIndex == breakRule.replacementIndex && replacementCount == breakRule.replacementCount && Objects.equals(replacement, breakRule.replacement);
         }
 
