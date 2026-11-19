@@ -25,7 +25,7 @@
 <dependency>
     <groupId>io.sevcik</groupId>
     <artifactId>hypherator</artifactId>
-    <version>1.1-jdk11</version>
+    <version>1.1.1-jdk11</version>
 </dependency>
 ```
 
