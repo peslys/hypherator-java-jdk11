@@ -200,7 +200,10 @@ class HyphenateImpl implements Hyphenate {
 
     private void applyBorderRules(Pair<Integer, HyphenDict.BreakRule>[] potentialBreaks, int leftHyphenMin, int rightHyphenMin, boolean isWordLeftEnd, boolean isWordRightEnd) {
         if (!isWordLeftEnd) {
-            for (int i = 0; i <= leftHyphenMin; i++) {
+            for (int i = 0; i <= leftHyphenMin
+                    // Eventual ArrayOutOfBounds exception fix.
+                    && i < potentialBreaks.length //
+                    ; i++) {
                 potentialBreaks[i].setFirst(0);
                 potentialBreaks[i].setSecond(null);
             }
